@@ -18,14 +18,16 @@ public class ClienteService {
 	
 	public ClienteDto create(ClienteDto clienteDto) {
 		clienteDto.setNome(clienteDto.getNome().toUpperCase());
-		
-		if(repository.existsByEmail(clienteDto.getEmail())) {
-			throw new RuntimeException("Email já existe para outro estudante");
-		}
+		clienteDto.setEmail(clienteDto.getNome().toLowerCase());
 		clienteDto.setTelefone(clienteDto.getTelefone());
 		clienteDto.setRua(clienteDto.getRua());
 		clienteDto.setNumero(clienteDto.getNumero());
 		clienteDto.setBairro(clienteDto.getNome());
+		
+		if(repository.existsByEmail(clienteDto.getEmail())) {
+			throw new RuntimeException("Email já existe para outro cliente");
+		}
+		
 		
 		Cliente cliente = ClienteMapper.dtoToEntity(clienteDto);
 		repository.save(cliente);

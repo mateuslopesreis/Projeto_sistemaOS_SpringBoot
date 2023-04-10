@@ -16,12 +16,16 @@ import br.com.ifmsnv.ordemservico.model.dto.ClienteDto;
 import br.com.ifmsnv.ordemservico.model.services.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @RestController
 @RequestMapping("/cliente")
+@Tag(name = "Cliente", description = "Gerenciamento de clientes")
+
 public class ClienteController {
 
 	
@@ -51,7 +55,7 @@ private final ClienteService clienteService;
 	
 	@PostMapping
 	public ResponseEntity<ClienteResponse> create(
-				@RequestBody ClienteRequest clienteRequest){
+				@RequestBody @Valid ClienteRequest clienteRequest){
 		 ClienteDto clienteDto = ClienteMapper.requestToDto(clienteRequest);
 		 ClienteDto clienteDto2 = clienteService.create(clienteDto);
 		 
